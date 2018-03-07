@@ -1,0 +1,39 @@
+This is the simplest example of interprocess communication on Linux using shared memory.
+
+Contents
+[1] Introduction
+[2] What the program does
+[3] System Requirements
+[4] How to compile
+[5] How to test
+
+[1] Introduction
+This program is intended to demonstrate the bare bone communication among two Linux Kernel processes. It consists if the following files
+
+producer.c - contains the code to create a process and shared memory region. It then puts the data in the shared memory buffer. 
+consumer.c - contains the code to create a process and access the shared memory region created by producer.c It then gets the data from the shared memory buffer. 
+defs.h - constants and includes for producer and consumer
+testIPC.c - main application to test the producer and consumer functionality.
+makefile - script to compile and link the code using make utility
+readme - this file
+
+
+[2] What the program does?
+The test application (testIPC.c) calls createProducer and createConsumer from producer and consumer modules respectively. Producer module creates a Linux proccess through fork() system call and a shared memory region through shmget() call. The process the writes some data into the shared buffer and exits. The process doesn't contain any forever running thread. The consumer module also creates a Linux process and then reads the contents from the memory region shared by producer. The data put in the buffer by producer and then one read from the buffer by consumer are displayed on the screen. The correctness of the data thus helps verify that the two processes are indeed able to communicate using shared memory technique.
+
+It is important to note that the package contains the bare bone minimum code to demonstrate interprocess communication using shared memory. This are no memory protection or process synchronization etc. added to govern the access to the shared memory region except access permissions specified by the producer thread during the creation of the shared memory region.
+
+[3] System Requirements
+Linux System
+gcc toolset
+make utility
+
+[4] How to compile
+Make sure all the .c and .h file are placed in the same folder where makefile is placed.
+run make
+It will build producer.o, consumer.o and testIPC.o as well as the final executable names simply as test.
+
+[5] How to test
+Enter ./test on the command prompt.
+It will run the program displaying its operations on the screen.
+
